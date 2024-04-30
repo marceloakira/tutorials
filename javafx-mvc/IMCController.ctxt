@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=IMCController
+comment0.text=\n\ Controla\ os\ dados\ do\ modelo\ e\ a\ intera\u00E7\u00E3o\ com\ a\ interface\ (vis\u00E3o)\n\ \n\ @author\ (seu\ nome)\ \n\ @version\ (um\ n\u00FAmero\ da\ vers\u00E3o\ ou\ uma\ data)\n
+comment1.params=
+comment1.target=IMCController()
+comment1.text=\n\ Construtor\ para\ objetos\ da\ classe\ IMCController\n
+comment2.params=
+comment2.target=void\ iniciar()
+comment3.params=e
+comment3.target=void\ botaoCalcularClicado(javafx.event.Event)
+comment4.params=e
+comment4.target=void\ botaoLimparClicado(javafx.event.Event)
+numComments=5

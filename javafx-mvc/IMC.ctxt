@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=IMC
+comment0.text=\n\ Modela\ o\ c\u00E1lculo\ de\ IMC\n\ \n\ @author\ marceloakira\ \n\ @version\ 0.01\n
+comment1.params=
+comment1.target=IMC()
+comment2.params=altura\ peso
+comment2.target=IMC(double,\ double)
+comment2.text=\n\ Construtor\ para\ objetos\ da\ classe\ CalculadoraIMC\n
+comment3.params=
+comment3.target=double\ calcular()
+comment3.text=\n\ Calcula\ o\ IMC\n\ \n\ @return\ \ \ \ \ o\ valor\ do\ IMC,\ dado\ por\:\ peso\ /\ (\ altura\ x\ altura)\n
+comment4.params=
+comment4.target=java.lang.String\ interpretar()
+comment4.text=\n\ Interpreta\ o\ IMC\n\ \n\ @return\ \ \ \ \ interpreta\ o\ IMC\n\ @see\ <a\ href\="https\://pt.wikipedia.org/wiki/%C3%8Dndice_de_massa_corporal">IMC\ Wikipedia</a>\n
+numComments=5

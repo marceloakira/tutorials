@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="559.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="212.0" layoutY="38.0" text="Calculadora de IMC">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <TextField id="textFieldAltura" fx:id="textFieldAltura" layoutX="67.0" layoutY="95.0" promptText="Metros" />
+      <Label layoutX="67.0" layoutY="78.0" text="Altura" />
+      <TextField id="textFieldPeso" fx:id="textFieldPeso" layoutX="280.0" layoutY="95.0" promptText="Quilos" />
+      <Label layoutX="280.0" layoutY="77.0" text="Peso" />
+      <Button id="buttonCalcular" layoutX="67.0" layoutY="130.0" mnemonicParsing="false" onAction="#botaoCalcularClicado" text="Calcular" />
+      <Button id="buttonLimpar" layoutX="147.0" layoutY="130.0" mnemonicParsing="false" onAction="#botaoLimparClicado" text="Limpar" />
+      <Label layoutX="68.0" layoutY="183.0" text="Seu IMC:" />
+      <Label id="labelResultado" fx:id="labelResultado" layoutX="144.0" layoutY="183.0" text="INFORME SUA ALTURA E PESO" />
+   </children>
+</Pane>
