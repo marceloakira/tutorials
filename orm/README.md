@@ -111,7 +111,53 @@ public class Student
         SimpleDateFormat dateFor = new SimpleDateFormat("dd/MM/yyyy");
         return dateFor.format(birthday);
     }
-}
+
+//Start GetterSetterExtension Source Code
+
+    /**GET Method Propertie id*/
+    public int getId(){
+        return this.id;
+    }//end method getId
+
+    /**SET Method Propertie id*/
+    public void setId(int id){
+        this.id = id;
+    }//end method setId
+
+    /**GET Method Propertie fullName*/
+    public String getFullName(){
+        return this.fullName;
+    }//end method getFullName
+
+    /**SET Method Propertie fullName*/
+    public void setFullName(String fullName){
+        this.fullName = fullName;
+    }//end method setFullName
+
+    /**GET Method Propertie registration*/
+    public int getRegistration(){
+        return this.registration;
+    }//end method getRegistration
+
+    /**SET Method Propertie registration*/
+    public void setRegistration(int registration){
+        this.registration = registration;
+    }//end method setRegistration
+
+    /**GET Method Propertie birthday*/
+    public Date getBirthday(){
+        return this.birthday;
+    }//end method getBirthday
+
+    /**SET Method Propertie birthday*/
+    public void setBirthday(Date birthday){
+        this.birthday = birthday;
+    }//end method setBirthday
+
+//End GetterSetterExtension Source Code
+
+
+}//End class
 ```
 
 A forma mais simples de se criar classes entidade é usando o recurso de [anotações java](https://en.wikipedia.org/wiki/Java_annotation), que consiste em fornecer metainformação sobre um membro da classe (exemplo, classes, propriedades e métodos). Cada linguagem de programação adota uma sintaxe de anotação, em java temos:
