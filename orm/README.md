@@ -64,7 +64,7 @@ public class Database
            try {
                connection.close();
                this.connection = null;
-           } catch (java.io.IOException e) {
+           } catch (java.lang.Exception e) {
                System.err.println(e);
            }
        }
