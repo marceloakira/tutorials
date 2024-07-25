@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=AppController
+comment1.params=
+comment1.target=AppController()
+comment10.params=location\ resources
+comment10.target=void\ initialize(java.net.URL,\ java.util.ResourceBundle)
+comment11.params=estudante
+comment11.target=view.Estudante\ modelToView(model.Estudante)
+comment12.params=
+comment12.target=javafx.collections.ObservableList\ loadAllEstudantes()
+comment2.params=args
+comment2.target=void\ main(java.lang.String[])
+comment3.params=adicionar\ atualizar\ deletar\ cancelar\ salvar
+comment3.target=void\ desabilitarBotoes(boolean,\ boolean,\ boolean,\ boolean,\ boolean)
+comment4.params=desabilitado
+comment4.target=void\ desabilitarCampos(boolean)
+comment5.params=
+comment5.target=void\ limparCampos()
+comment6.params=
+comment6.target=void\ onCancelarButtonAction()
+comment7.params=
+comment7.target=void\ onSalvarButtonAction()
+comment8.params=
+comment8.target=void\ onAdicionarButtonAction()
+comment9.params=newSelection
+comment9.target=void\ handleEstudanteSelected(view.Estudante)
+numComments=13

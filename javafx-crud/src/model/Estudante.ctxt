@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Estudante
+comment1.params=
+comment1.target=int\ getId()
+comment1.text=GET\ Method\ Propertie\ id
+comment2.params=id
+comment2.target=void\ setId(int)
+comment2.text=SET\ Method\ Propertie\ id
+comment3.params=
+comment3.target=java.lang.String\ getNomeCompleto()
+comment3.text=GET\ Method\ Propertie\ nomeCompleto
+comment4.params=nomeCompleto
+comment4.target=void\ setNomeCompleto(java.lang.String)
+comment4.text=SET\ Method\ Propertie\ nomeCompleto
+comment5.params=
+comment5.target=java.lang.String\ getDataDeNascimento()
+comment5.text=GET\ Method\ Propertie\ dataDeNascimento
+comment6.params=dataDeNascimento
+comment6.target=void\ setDataDeNascimento(java.lang.String)
+comment6.text=SET\ Method\ Propertie\ dataDeNascimento
+comment7.params=
+comment7.target=int\ getMatricula()
+comment7.text=GET\ Method\ Propertie\ matricula
+comment8.params=matricula
+comment8.target=void\ setMatricula(int)
+comment8.text=SET\ Method\ Propertie\ matricula
+numComments=9
