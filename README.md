@@ -9,3 +9,7 @@ Tutorials for teaching people
 
 # ORM e Acesso a Banco de Dados
 * [ORM e Acesso a Banco de Dados](orm/README.md)
+
+
+# CRUD em JavaFX
+* [CRUD usando MVC em JavaFX](javafx-crud/README.md)
