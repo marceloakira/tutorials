@@ -225,7 +225,7 @@ Matricula "*" --> "1" Disciplina : disciplina
 @enduml
 ```
 
----
+Para consultar a sintaxe do diagrama de classes, você pode acessar a [documentação do PlantUML](https://plantuml.com/class-diagram).
 
 ## 4. Conclusão
 
