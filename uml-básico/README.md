@@ -8,11 +8,11 @@ A **UML (Unified Modeling Language)** é uma linguagem padronizada para **modela
 - Comunicar ideias entre desenvolvedores, analistas e clientes;
 - Documentar requisitos, regras de negócio, entidades e fluxos de interação.
 
-> Este tutorial tem como foco três artefatos principais:
->
-> 1. **Descrição de Caso de Uso**: captura os requisitos funcionais.
-> 2. **Diagrama de Sequência**: mostra o fluxo de mensagens entre os objetos.
-> 3. **Diagrama de Classes**: descreve a estrutura do sistema.
+Este tutorial tem como foco três artefatos principais:
+
+1. **Descrição de Caso de Uso**: captura os requisitos funcionais.
+2. **Diagrama de Sequência**: mostra o fluxo de mensagens entre os objetos.
+3. **Diagrama de Classes**: descreve a estrutura do sistema.
 
 O exemplo utilizado será o de um **Sistema de Matrícula**, que permite que estudantes se matriculem em disciplinas de acordo com o ano de sua turma (1º ao 5º ano).
 
