@@ -78,7 +78,7 @@ Para incluir o diagrama em um documento Markdown, você pode usar a seguinte sin
 
 A sintaxe dos diagramas de caso de uso é simples e intuitiva. Você define os atores e os casos de uso, e o PlantUML gera o diagrama automaticamente. Para mais informações sobre a sintaxe, consulte a [documentação do PlantUML](https://plantuml.com/use-case-diagram).
 
-### 1.2 Exemplo: Diagrama de Caso de Uso
+### 1.2 Exemplo: Descrição de Caso de Uso
 
 A seguir, apresentamos um exemplo de descrição textual de um caso de uso para a funcionalidade "Realizar Matrícula" do sistema de matrícula:
 
