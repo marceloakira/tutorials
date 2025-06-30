@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="704.0" prefWidth="891.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DisciplinaController">
+   <children>
+      <SplitPane dividerPositions="0.4" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <!-- Parte superior com formulário -->
+            <AnchorPane>
+               <children>
+                  <Pane prefHeight="317.0" prefWidth="798.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label layoutX="50.0" layoutY="20.0" text="Cadastro de Disciplina">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+
+                        <Label layoutX="50.0" layoutY="70.0" text="ID" />
+                        <TextField fx:id="idField" disable="true" editable="false" layoutX="180.0" layoutY="65.0" />
+
+                        <Label layoutX="50.0" layoutY="110.0" text="Código" />
+                        <TextField fx:id="codigoField" layoutX="180.0" layoutY="105.0" />
+
+                        <Label layoutX="50.0" layoutY="150.0" text="Título" />
+                        <TextField fx:id="tituloField" layoutX="180.0" layoutY="145.0" />
+
+                        <Label layoutX="50.0" layoutY="190.0" text="Ementa" />
+                        <TextField fx:id="ementaField" layoutX="180.0" layoutY="185.0" />
+
+                        <Button fx:id="adicionarButton" layoutX="50.0" layoutY="240.0" mnemonicParsing="false" onAction="#onAdicionar" text="Adicionar" />
+                        <Button fx:id="atualizarButton" disable="true" layoutX="140.0" layoutY="240.0" mnemonicParsing="false" onAction="#onAtualizar" text="Atualizar" />
+                        <Button fx:id="deletarButton" disable="true" layoutX="230.0" layoutY="240.0" mnemonicParsing="false" onAction="#onDeletar" text="Deletar" />
+                        <Button fx:id="cancelarButton" disable="true" layoutX="320.0" layoutY="240.0" mnemonicParsing="false" onAction="#onCancelar" text="Cancelar" />
+                        <Button fx:id="salvarButton" disable="true" layoutX="410.0" layoutY="240.0" mnemonicParsing="false" onAction="#onSalvar" text="Salvar" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+
+            <!-- Parte inferior com tabela -->
+            <AnchorPane>
+               <children>
+                  <TableView fx:id="tabela" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <columns>
+                        <TableColumn fx:id="idCol" prefWidth="50.0" text="ID" />
+                        <TableColumn fx:id="codigoCol" prefWidth="100.0" text="Código" />
+                        <TableColumn fx:id="tituloCol" prefWidth="200.0" text="Título" />
+                        <TableColumn fx:id="ementaCol" prefWidth="300.0" text="Ementa" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

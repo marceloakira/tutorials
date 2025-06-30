@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=AppController
+comment1.params=
+comment1.target=AppController()
+comment2.params=args
+comment2.target=void\ main(java.lang.String[])
+comment3.params=location\ resources
+comment3.target=void\ initialize(java.net.URL,\ java.util.ResourceBundle)
+numComments=4

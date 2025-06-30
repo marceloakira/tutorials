@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=MatriculaTest
+comment0.text=\n\ Classe\ de\ teste\ para\ Matricula.\n\ Testa\ cria\u00E7\u00E3o\ e\ remo\u00E7\u00E3o\ de\ matr\u00EDculas.\n
+comment1.params=
+comment1.target=void\ setUp()
+comment2.params=
+comment2.target=void\ tearDown()
+comment3.params=
+comment3.target=void\ testCreateAndDeleteMatricula()
+numComments=4

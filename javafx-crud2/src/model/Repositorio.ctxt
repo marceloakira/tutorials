@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Repositorio
+comment1.params=database\ entityClass
+comment1.target=Repositorio(Database,\ java.lang.Class)
+comment2.params=database
+comment2.target=void\ setDatabase(Database)
+comment3.params=entity
+comment3.target=java.lang.Object\ create(java.lang.Object)
+comment4.params=entity
+comment4.target=void\ update(java.lang.Object)
+comment5.params=entity
+comment5.target=void\ delete(java.lang.Object)
+comment6.params=id
+comment6.target=java.lang.Object\ loadFromId(java.lang.Object)
+comment7.params=
+comment7.target=java.util.List\ loadAll()
+numComments=8

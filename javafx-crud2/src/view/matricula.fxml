@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.MatriculaController"
+            prefHeight="600.0" prefWidth="800.0">
+   <children>
+      <SplitPane orientation="VERTICAL" dividerPositions="0.4"
+                 AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <items>
+            <!-- Parte superior com formulário -->
+            <AnchorPane>
+               <children>
+                  <Pane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <Label layoutX="50.0" layoutY="20.0" text="Cadastro de Matrícula">
+                           <font>
+                              <Font size="18.0"/>
+                           </font>
+                        </Label>
+
+                        <Label layoutX="50.0" layoutY="70.0" text="ID"/>
+                        <TextField fx:id="idField" layoutX="200.0" layoutY="65.0"
+                                   editable="false" disable="true"/>
+
+                        <Label layoutX="50.0" layoutY="110.0" text="Estudante"/>
+                        <ComboBox fx:id="estudanteComboBox" layoutX="200.0" layoutY="105.0" prefWidth="250.0"/>
+
+                        <Label layoutX="50.0" layoutY="150.0" text="Turma"/>
+                        <ComboBox fx:id="turmaComboBox" layoutX="200.0" layoutY="145.0" prefWidth="250.0"/>
+
+                        <Label layoutX="50.0" layoutY="190.0" text="Status"/>
+                        <ComboBox fx:id="statusComboBox" layoutX="200.0" layoutY="185.0" prefWidth="150.0"/>
+
+                        <Button fx:id="adicionarButton" layoutX="50.0" layoutY="240.0"
+                                mnemonicParsing="false" text="Adicionar"
+                                onAction="#onAdicionar"/>
+                        <Button fx:id="atualizarButton" layoutX="150.0" layoutY="240.0"
+                                mnemonicParsing="false" text="Atualizar"
+                                onAction="#onAtualizar" disable="true"/>
+                        <Button fx:id="deletarButton" layoutX="250.0" layoutY="240.0"
+                                mnemonicParsing="false" text="Deletar"
+                                onAction="#onDeletar" disable="true"/>
+                        <Button fx:id="cancelarButton" layoutX="350.0" layoutY="240.0"
+                                mnemonicParsing="false" text="Cancelar"
+                                onAction="#onCancelar" disable="true"/>
+                        <Button fx:id="salvarButton" layoutX="450.0" layoutY="240.0"
+                                mnemonicParsing="false" text="Salvar"
+                                onAction="#onSalvar" disable="true"/>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+
+            <!-- Parte inferior com tabela -->
+            <AnchorPane>
+               <children>
+                  <TableView fx:id="tabela"
+                             AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <columns>
+                        <TableColumn fx:id="idCol" text="ID" prefWidth="50.0"/>
+                        <TableColumn fx:id="estudanteCol" text="Estudante" prefWidth="200.0"/>
+                        <TableColumn fx:id="turmaCol" text="Turma" prefWidth="150.0"/>
+                        <TableColumn fx:id="statusCol" text="Status" prefWidth="100.0"/>
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

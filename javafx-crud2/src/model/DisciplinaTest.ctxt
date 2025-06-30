@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=DisciplinaTest
+comment0.text=\n\ A\ classe\ de\ teste\ DisciplinaTest.\n\n\ @author\ \ (seu\ nome)\n\ @version\ (um\ n\u00FAmero\ da\ vers\u00E3o\ ou\ uma\ data)\n
+comment1.params=
+comment1.target=DisciplinaTest()
+comment1.text=\n\ Construtor\ default\ para\ a\ classe\ de\ teste\ DisciplinaTest\n
+comment2.params=
+comment2.target=void\ setUp()
+comment2.text=\n\ Define\ a\ 'fixture'\ do\ teste.\n\n\ Chamado\ antes\ de\ cada\ m\u00E9todo\ de\ caso\ de\ teste.\n
+comment3.params=
+comment3.target=void\ tearDown()
+comment3.text=\n\ Desfaz\ a\ 'fixture'\ do\ teste.\n\n\ Chamado\ ap\u00F3s\ cada\ m\u00E9todo\ de\ teste\ de\ caso.\n
+comment4.params=
+comment4.target=void\ testCreate()
+numComments=5
