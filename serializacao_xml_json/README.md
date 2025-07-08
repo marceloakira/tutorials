@@ -13,8 +13,8 @@ Dando continuidade ao tutorial anterior, no qual vimos como mapear objetos Java 
 - Reconstruído posteriormente (desserialização).
 
 Java oferece diversas bibliotecas e APIs para este fim. Aqui veremos:
-✅ [Gson](https://github.com/google/gson) – para JSON  
-✅ [Java XML Binding (JAXB)](https://docs.oracle.com/javase/tutorial/jaxb/) – para XML
+- ✅ [Gson](https://github.com/google/gson) – para JSON  
+- ✅ [Java XML Binding (JAXB)](https://docs.oracle.com/javase/tutorial/jaxb/) – para XML
 
 ## 2. Serializando objetos em JSON com Gson
 
@@ -83,7 +83,7 @@ public class Main
 ```
 
 Saída esperada:
-```json
+```
 JSON gerado:
 {
   "id": 1,
