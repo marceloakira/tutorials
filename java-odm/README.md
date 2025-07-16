@@ -64,7 +64,11 @@ Vamos usar Docker para evitar instalação manual no sistema operacional.
    O comando abaixo cria o container, define nome, portas e volume persistente:
 
    ```bash
-   docker run -d      --name mongodb      -p 27017:27017      -v mongodb_data:/data/db      mongodb/mongodb-community-server:latest
+   docker run -d \
+      --name mongodb \
+      -p 27017:27017 \
+      -v mongodb_data:/data/db \
+      mongodb/mongodb-community-server:latest
    ```
 
    🔍 **Explicando cada parâmetro:**
@@ -183,10 +187,11 @@ Nesta etapa, você vai criar um projeto Maven com Spring Boot que será a base d
    Use este comando para criar um projeto básico Maven:
 
    ```bash
-   mvn archetype:generate      
-   -DgroupId=br.ufg.inf      
-   -DartifactId=java-mongodb-odm
-   -DarchetypeArtifactId=maven-archetype-quickstart      
+   mvn archetype:generate \
+   -DgroupId=br.ufg.inf \
+   -DartifactId=java-mongodb-odm \
+   -DarchetypeArtifactId=maven-archetype-quickstart \
+   -DarchetypeVersion=1.4 \
    -DinteractiveMode=false
    ```
 
