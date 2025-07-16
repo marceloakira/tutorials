@@ -252,59 +252,28 @@ Nesta etapa, você vai criar um projeto Maven com Spring Boot que será a base d
    - `spring-boot-starter`: base do Spring Boot.
    - `junit`: framework de testes (versão 4).
 
-5. **Atualizar a classe de teste**
+5. **Criar a classe principal do projeto**
 
-   O projeto gerado pelo archetype vem com um teste JUnit 3 (`TestCase`) desatualizado.
-   Para evitar erros, substitua o conteúdo do arquivo:
-
-   ```
-   src/test/java/br/ufg/inf/AppTest.java
-   ```
-
-   Por este teste usando JUnit 4:
-
-   ```java
-   package br.ufg.inf;
-
-   import org.junit.Test;
-   import static org.junit.Assert.assertTrue;
-
-   public class AppTest {
-
-       @Test
-       public void testApp() {
-           assertTrue(true);
-       }
-   }
-   ```
-
-   🔍 *O que mudou?*
-   - Passou a usar `@Test` (JUnit 4).
-   - Usa `assertTrue` sem herdar `TestCase`.
-   - Compatível com dependência JUnit 4.
-
-6. **Criar a classe principal do projeto**
-
-   Apague o arquivo `App.java` criado automaticamente e crie um novo arquivo:
+   Altere o conteúdo do arquivo `App.java` criado automaticamente:
 
    ```
-   src/main/java/br/ufg/inf/Application.java
+   src/main/java/br/ufg/inf/App.java
    ```
 
    Com o seguinte conteúdo:
 
    ```java
-   package br.ufg.inf;
+      package br.ufg.inf;
 
-   import org.springframework.boot.SpringApplication;
-   import org.springframework.boot.autoconfigure.SpringBootApplication;
+      import org.springframework.boot.SpringApplication;
+      import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-   @SpringBootApplication
-   public class Application {
-       public static void main(String[] args) {
-           SpringApplication.run(Application.class, args);
-       }
-   }
+      @SpringBootApplication
+      public class App {
+         public static void main(String[] args) {
+            SpringApplication.run(App.class, args);
+         }
+      }
    ```
 
    🔍 *O que essa classe faz?*
