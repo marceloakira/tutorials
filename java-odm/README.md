@@ -185,7 +185,8 @@ Nesta etapa, você vai criar um projeto Maven com Spring Boot que será a base d
    ```bash
    mvn archetype:generate      
    -DgroupId=br.ufg.inf      
-   -DartifactId=java-mongodb-odm      -DarchetypeArtifactId=maven-archetype-quickstart      
+   -DartifactId=java-mongodb-odm
+   -DarchetypeArtifactId=maven-archetype-quickstart      
    -DinteractiveMode=false
    ```
 
