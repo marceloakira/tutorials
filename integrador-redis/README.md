@@ -1,6 +1,12 @@
-# Integrador Redis: Sincronização entre ORM e ODM
+# Integrador Redis I: Arquitetura Pub/Sub e código-fonte básico para Sincronização de CRUD entre ORM e ODM
 
 ## 1. Objetivo
+
+A integração entre dois ou mais sistemas de persistência é um desafio comum em arquiteturas modernas. Com o advento dos Web Services, REST APIs e microserviços, a necessidade de sincronizar dados entre diferentes bancos de dados se tornou uma prática recorrente. É comum ter sistemas com entidades comuns, como usuários, produtos ou pedidos, que precisam ser atualizados em múltiplos repositórios de dados, com diversas tecnologias de persistência, como bancos de dados relacionais e NoSQL.
+
+Para resolver esse desafio, é necessário implementar uma arquitetura que permita a **sincronização de dados** entre esses sistemas de forma eficiente e confiável. A abordagem tradicional de replicação de dados pode ser complexa e difícil de manter, especialmente quando se lida com diferentes modelos de dados e tecnologias de persistência. Neste contexto, surgem diversas padrões arquiteturais, como: **[api gateway](https://microservices.io/patterns/apigateway.html)**, **web service façade** (vide figura abaixo), **[event sourcing](https://microservices.io/patterns/data/event-sourcing.html)**, entre outras. Essas abordagens visam desacoplar a lógica de negócios da persistência de dados, permitindo que as aplicações se comuniquem de forma mais flexível e escalável.
+
+Neste contexto, o Redis se destaca como uma solução eficiente para implementar um **[barramento de eventos](https://dzone.com/articles/design-patterns-event-bus)** que permite a comunicação assíncrona entre diferentes sistemas de persistência. Utilizando o Redis, é possível desacoplar a lógica de negócios da persistência de dados, permitindo que as aplicações se comuniquem de forma mais flexível e escalável.
 
 A arquitetura proposta tem como objetivo **sincronizar operações de escrita (CRUD)** entre dois sistemas distintos de persistência:
 
@@ -77,4 +83,8 @@ O código-fonte do diagrama está disponível neste link:
 | **Tolerante a falhas**| Operações com erro são armazenadas para retry.                           |
 | **Desacoplada**       | O middleware abstrai o acoplamento entre os dois sistemas.               |
 | **Extensível**        | Pode-se incluir novas transformações, validadores, logs ou métricas.     |
+
+## 5. Implementação Básica
+
+Para provar o conceito de sincronização, segue uma implementação básica em Java utilizando o Redis como barramento de eventos. O código-fonte está disponível no repositório do GitHub:
 
