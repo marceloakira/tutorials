@@ -6,6 +6,9 @@ A integração entre dois ou mais sistemas de persistência é um desafio comum 
 
 Para resolver esse desafio, é necessário implementar uma arquitetura que permita a **sincronização de dados** entre esses sistemas de forma eficiente e confiável. A abordagem tradicional de replicação de dados pode ser complexa e difícil de manter, especialmente quando se lida com diferentes modelos de dados e tecnologias de persistência. Neste contexto, surgem diversas padrões arquiteturais, como: **[api gateway](https://microservices.io/patterns/apigateway.html)**, **web service façade** (vide figura abaixo), **[event sourcing](https://microservices.io/patterns/data/event-sourcing.html)**, entre outras. Essas abordagens visam desacoplar a lógica de negócios da persistência de dados, permitindo que as aplicações se comuniquem de forma mais flexível e escalável.
 
+![Web Service Façade](web-service-facade.png)
+Fonte: McMurtry et al. (2013) - Data Access for Highly-Scalable Solutions: Using SQL, NoSQL and Polyglot Persistence
+
 Neste contexto, o Redis se destaca como uma solução eficiente para implementar um **[barramento de eventos](https://dzone.com/articles/design-patterns-event-bus)** que permite a comunicação assíncrona entre diferentes sistemas de persistência. Utilizando o Redis, é possível desacoplar a lógica de negócios da persistência de dados, permitindo que as aplicações se comuniquem de forma mais flexível e escalável.
 
 A arquitetura proposta tem como objetivo **sincronizar operações de escrita (CRUD)** entre dois sistemas distintos de persistência:
@@ -87,4 +90,66 @@ O código-fonte do diagrama está disponível neste link:
 ## 5. Implementação Básica
 
 Para provar o conceito de sincronização, segue uma implementação básica em Java utilizando o Redis como barramento de eventos. O código-fonte está disponível no repositório do GitHub:
+
+* [Integrador Redis I - GitHub](https://github.com/marceloakira/tutorials/tree/main/integrador-redis/code/spd-integrador)
+
+Para implementar o integrador, você precisará do seguinte arquivo `pom.xml` para gerenciar as dependências do projeto:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.ufg.inf</groupId>
+    <artifactId>spd-integrador</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>6.7.1.RELEASE</version>
+        </dependency>
+
+        <!-- Gson para serialização/deserialização JSON -->
+        <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.11.0</version>
+        </dependency>
+
+        <!-- SLF4J facade -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.12</version>
+        </dependency>
+
+        <!-- Logback implementation (resolve o StaticLoggerBinder) -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.14</version>
+        </dependency>        
+    </dependencies>
+</project>
+```
+
+As dependências principais incluem:
+- **Lettuce**: Cliente Redis assíncrono.
+- **Gson**: Biblioteca para serialização/deserialização JSON.
+- **SLF4J**: Facade para logging, com implementação Logback.
+
+Para instalar as dependências, crie um projeto java, copie o arquivo `pom.xml` na pasta do projeto e execute o comando:
+
+```bash
+mvn clean install
+```
 
