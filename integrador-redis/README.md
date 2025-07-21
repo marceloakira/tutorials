@@ -153,3 +153,185 @@ Para instalar as dependências, crie um projeto java, copie o arquivo `pom.xml` 
 mvn clean install
 ```
 
+Criar as pastas de código-fonte e testes:
+```bash
+mkdir -p src/main/java/br/ufg/inf
+mkdir -p src/main/resources
+mkdir -p src/test/java/br/ufg/inf
+```
+
+1. Crie o arquivo `src/main/java/br/ufg/inf/RedisPublisher.java` com o seguinte conteúdo:
+
+```java
+package br.ufg.inf;
+import com.google.gson.Gson;
+import io.lettuce.core.RedisClient;
+
+public class RedisPublisher {
+
+    private final RedisClient client = RedisClient.create("redis://localhost:6379");
+
+    public void publishOperation(CrudOperation op) throws Exception {
+        try (var connection = client.connect()) {
+            Gson gson = new Gson();
+            String json = gson.toJson(op);
+            connection.sync().publish("crud-channel", json);
+        }
+    }
+}
+```
+
+Este código define um publicador que envia operações CRUD para o canal `crud-channel` do Redis. Ele utiliza a biblioteca Gson para serializar as operações em JSON.
+
+2. Crie o arquivo `src/main/java/br/ufg/inf/CrudOperation.java` com o seguinte conteúdo:
+
+```java
+package br.ufg.inf;
+
+public class CrudOperation {
+    public enum OperationType { CREATE, UPDATE, DELETE }
+    public enum Source { BD1, BD2 }
+
+    private String entity;
+    private OperationType operation;
+    private Source source;
+    private String data; // JSON do objeto serializado
+    private String timestamp;
+
+    // Construtores
+    public CrudOperation() {}
+
+    public CrudOperation(String entity, OperationType operation, Source source, String data, String timestamp) {
+        this.entity = entity;
+        this.operation = operation;
+        this.source = source;
+        this.data = data;
+        this.timestamp = timestamp;
+    }
+
+    // Getters
+    public String getEntity() {
+        return entity;
+    }
+
+    public OperationType getOperation() {
+        return operation;
+    }
+
+    public Source getSource() {
+        return source;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    // Setters
+    public void setEntity(String entity) {
+        this.entity = entity;
+    }
+
+    public void setOperation(OperationType operation) {
+        this.operation = operation;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    // toString()
+    @Override
+    public String toString() {
+        return "CrudOperation{" +
+                "entity='" + entity + '\'' +
+                ", operation=" + operation +
+                ", source=" + source +
+                ", data='" + data + '\'' +
+                ", timestamp='" + timestamp + '\'' +
+                '}';
+    }
+}
+```
+
+Este código define a classe `CrudOperation`, que representa uma operação CRUD com os campos necessários para identificar a entidade, o tipo de operação, a origem (BD1 ou BD2), os dados serializados e um timestamp.
+
+3. Crie o arquivo `src/main/java/br/ufg/inf/Main.java` com o seguinte conteúdo:
+
+```java
+package br.ufg.inf;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        // Exemplo: publicar mensagem (teste manual)
+        RedisPublisher publisher = new RedisPublisher();
+        CrudOperation op = new CrudOperation();
+        op.setEntity("User");
+        op.setOperation(CrudOperation.OperationType.CREATE);
+        op.setSource(CrudOperation.Source.BD1);
+        op.setData("{\"id\":1,\"name\":\"João da Silva\"}");
+        op.setTimestamp(java.time.Instant.now().toString());
+
+        publisher.publishOperation(op);
+    }
+}
+```
+
+Este código define a classe `Main`, que contém um exemplo de uso do `RedisPublisher` para publicar uma operação CRUD. Você pode executar este código para testar a publicação de mensagens no Redis.
+
+4. Crie o arquivo `src/main/java/br/ufg/inf/RedisListenerServer.java` com o seguinte conteúdo:
+
+```java
+package br.ufg.inf;
+
+import java.util.concurrent.CountDownLatch;
+
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.pubsub.RedisPubSubAdapter;
+import io.lettuce.core.pubsub.StatefulRedisPubSubConnection;
+
+public class RedisListenerServer {
+
+    public void start() throws InterruptedException {
+        RedisClient client = RedisClient.create("redis://localhost:6379");
+        StatefulRedisPubSubConnection<String, String> connection = client.connectPubSub();
+
+        connection.addListener(new RedisPubSubAdapter<>() {
+            @Override
+            public void message(String channel, String message) {
+                System.out.printf("🔔 [%s] %s%n", channel, message);
+            }
+        });
+
+        connection.sync().subscribe("crud-channel");
+
+        System.out.println("🟢 Escutando notificações Redis de forma assíncrona...");
+
+        // Mantém a thread principal ativa indefinidamente
+        new CountDownLatch(1).await();
+    }
+
+    public static void main(String[] args) throws Exception {
+        RedisListenerServer listener = new RedisListenerServer();
+        listener.start();
+    }
+
+}
+```
+
+Este código define um servidor de listener que se conecta ao Redis e escuta mensagens no canal `crud-channel`. Quando uma mensagem é recebida, ela é impressa no console.
+
+Para testar a funcionalidade de escuta, você pode executar o `RedisListenerServer` em uma janela de terminal separada. Ele ficará aguardando mensagens publicadas no canal.
+
+Para testar a funcionalidade de publicação, execute o `Main` em outra janela de terminal. Você verá a mensagem publicada sendo recebida pelo listener.
