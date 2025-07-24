@@ -145,11 +145,30 @@ Na figura acima, os sistemas A, B e C e D dependem do MDC, mas cada um não depe
 | `statusEmprestimoLivros` (enum) | *(ausente)*                    | ❌ Não                   | Campo específico do SGA usado para controle de pendências com a biblioteca   |
 | *(ausente)*                      | `situacaoMatricula` (String)   | ❌ Não                   | Campo específico do SB usado para liberar ou bloquear empréstimos            |
 
+### Identificador Canônico e Entidade de Mapeamento
 
-## 3.3. Transformação de Modelos
+Para que o Modelo de Dados Canônico (MDC) cumpra seu papel de forma eficaz, é fundamental que cada entidade integrada entre os sistemas possua um **identificador universal**, denominado `idCanonico`. Esse identificador atua como chave primária no domínio canônico e deve ser **independente dos identificadores locais** usados por cada sistema de origem ou destino.
+
+A adoção de um `idCanonico` baseado em **[UUID (Universally Unique Identifier)](https://pt.wikipedia.org/wiki/UUID)** traz benefícios importantes: promove o **desacoplamento entre os sistemas**, assegura **unicidade global** e permite que o integrador opere de forma neutra em relação às tecnologias de persistência utilizadas. Enquanto isso, os sistemas originais — como o SGA (com `id` inteiro) e o SB (com `id` em formato de hash) — continuam utilizando seus próprios identificadores.
+
+Para permitir a correspondência entre esses identificadores locais e o canônico, define-se uma **entidade de mapeamento de IDs**, chamada `MapeamentoID`. Essa entidade relaciona o `idCanonico` aos identificadores específicos de cada sistema (`idSGA`, `idSB`) e registra o momento da última sincronização. Ela permite que o integrador **localize, atualize e reconcilie entidades** de forma segura e rastreável. Um benefício central dessa abordagem é o suporte à **[idempotência](https://www.enterpriseintegrationpatterns.com/patterns/messaging/IdempotentReceiver.html)**, ou seja, a garantia de que operações repetidas não causarão efeitos duplicados — característica essencial em cenários com reprocessamentos, mensagens duplicadas ou falhas temporárias.
+
+Além disso, o uso do `idCanonico` junto à entidade `MapeamentoID` torna o modelo naturalmente **extensível**: caso um novo sistema venha a ser integrado, basta adicionar um novo campo de identificador ao mapeamento e os atributos relevantes ao MDC, sem necessidade de alterar os sistemas existentes. Isso torna a arquitetura preparada para evoluir de forma sustentável e desacoplada.
+
+### Modelo de Dados Canônico Proposto
+
+Com base na análise comparativa entre os modelos de dados dos sistemas SGA e SB, propõe-se um Modelo de Dados Canônico (MDC) que representa uma abstração comum da entidade *Estudante*. O MDC unifica os atributos compartilhados, normaliza diferenças estruturais e acomoda informações específicas de cada sistema, permitindo uma transformação eficiente e desacoplada.
+
+A estrutura proposta inclui atributos como `idCanonico`, que é um identificador universal baseado em UUID, e os campos `prenome` e `sobrenome`, derivados da separação do `nomeCompleto` utilizado no SGA. Atributos relevantes para ambos os domínios, como `statusBiblioteca` (proveniente do SGA) e `statusAcademico` (presente no SB), também são incorporados ao modelo, assegurando uma visão unificada do estudante em diferentes contextos.
+
+Além disso, para viabilizar a correspondência entre os identificadores locais dos sistemas e o identificador canônico, define-se uma entidade auxiliar denominada `MapeamentoID`. Essa entidade registra os vínculos entre `idCanonico`, `idSGA` e `idSB`, além de armazenar a data da última sincronização. Esse componente é essencial para garantir rastreabilidade, consistência e idempotência na integração entre os sistemas.
+
+A seguir, apresenta-se o diagrama de classes do modelo canônico proposto, incluindo a entidade de mapeamento de IDs:
+
+![Modelo de Dados Canônico](modelo_de_dados_canonico.png)
+Figura 6: Diagrama de Classes do Modelo de Dados Canônico, código-fonte disponível em [modelo_de_dados_canonico.puml](modelo_de_dados_canonico.puml).
 
 # 4. Implementação
-
 
 ## 4.1. Configuração do Ambiente
 

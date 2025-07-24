@@ -1,0 +1,25 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+class EstudanteCanonico {
+    - idCanonico : String
+    - prenome : String
+    - sobrenome : String
+    - nomeCompleto : String
+    - dataDeNascimento : String
+    - matricula : String
+    - statusAcademico : String
+    - statusBiblioteca : String
+}
+
+class MapeamentoID {
+    - idCanonico : String
+    - idSGA : String
+    - idSB : String
+    - ultimaAtualizacao : Date
+}
+
+EstudanteCanonico "1" --> "1" MapeamentoID
+
+@enduml
