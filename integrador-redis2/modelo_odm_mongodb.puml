@@ -5,8 +5,9 @@ left to right direction
 package "Sistema de Biblioteca (SB)" {
 
 class Usuario {
-    - uid : String
-    - nomeCompleto : String
+    - id : String
+    - sobrenome : String
+    - prenome: String
     - situacaoMatricula : String
 }
 
