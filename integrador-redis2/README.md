@@ -72,7 +72,66 @@ Neste tutorial, utilizaremos o Apache Camel para implementar a transformação d
 
 Os três padrões de integração mencionados acima serão utilizados e implementados neste estudo de caso. O Roteador de Mensagens permite direcionar as mensagens para o transformador correto, enquanto o Transformador de Mensagens realiza a transformação propriamente dita. O Modelo de Dados Canônico serve como um intermediário entre os diferentes sistemas, garantindo que as mensagens sejam compatíveis entre si.
 
+# 3. Modelagem do Estudo de Caso
 
+## 3.1. Diagrama de Classes
+
+Considerando que o objetivo do integrador é transformar modelos de dados entre diferentes sistemas de persistência, são necessários dois diagramas de classes: um para o modelo baseado em ORM/SQLite e outro para o modelo baseado em ODM/MongoDB.
+
+Como estudo de caso, considere dois sistemas com camadas de persistência distintas:
+
+* **Sistema de Gestão Acadêmica (SGA)**: responsável pela gestão dos processos acadêmicos de uma universidade. Entre suas principais entidades estão: *Estudante*, *Disciplina*, *Turma* e *Matrícula*.
+
+* **Sistema de Biblioteca (SB)**: responsável pela gestão dos empréstimos de livros aos estudantes. Suas principais entidades incluem: *Estudante*, *Livro* e *Empréstimo*.
+
+Para fins de integração, a entidade *Estudante* deve ser compartilhada entre os dois sistemas. No SB, o estudante deve possuir um *status de matrícula* que determina se ele está autorizado a realizar empréstimos. Já no SGA, o estudante deve possuir um atributo que indica o *status de empréstimo de livros* (por exemplo, `QUITADO` ou `EM_ABERTO`), o qual impacta diretamente na autorização para emissão do diploma.
+
+Abaixo estão os diagramas de classes para cada sistema:
+
+### Modelo SGA: ORM/SQLite
+
+![Modelo ORM/SQLite](modelo_orm_sqlite.png)
+O código-fonte do diagrama de classes do modelo ORM/SQLite pode ser encontrado em [modelo_orm_sqlite.puml](modelo_orm_sqlite.puml).
+
+* **Estudante**: Representa um aluno da instituição. Possui um relacionamento "1:N" com a entidade *Matricula*, ou seja, um estudante pode se matricular em várias turmas. Também possui um atributo *statusEmprestimoLivros*, que indica a situação do estudante quanto a pendências com a biblioteca (ex: `QUITADO`, `EM_ABERTO`).
+* **Disciplina**: Representa um componente curricular. Possui um relacionamento "1:N" com a entidade *Turma*, indicando que uma disciplina pode ser oferecida em várias turmas.
+* **Turma**: Representa uma oferta específica de uma disciplina. Possui um relacionamento "N:1" com *Disciplina* e "1:N" com *Matricula*, ou seja, cada turma pertence a uma disciplina e pode ter várias matrículas.
+* **Matricula**: Representa o vínculo entre um estudante e uma turma. Possui relacionamentos "N:1" com *Estudante* e *Turma*, e "1:1" com *StatusMatricula*. Ou seja, a matrícula estabelece uma relação N:M entre estudantes e turmas, com um status associado a cada vínculo.
+* **StatusMatricula**: Enumeração que indica o estado de uma matrícula (ex: `ATIVA`, `TRANCADA`, `CANCELADA`). Cada matrícula possui exatamente um status associado.
+* **StatusEmprestimo**: Enumeração que indica a situação dos empréstimos de livros do estudante, usada para fins administrativos (ex: impedir emissão de diploma). Os valores possíveis são `QUITADO` e `EM_ABERTO`.
+
+
+### Modelo SB: ODM/MongoDB
+
+![Modelo ODM/MongoDB](modelo_odm_mongodb.png)
+O código-fonte do diagrama de classes do modelo do Sistemas de Bibliotecas (ODM/MongoDB) pode ser encontrado em [modelo_odm_mongodb.puml](modelo_odm_mongodb.puml).
+
+* **Usuario**: Representa um estudante registrado no sistema da biblioteca. Possui um relacionamento "1:N" com a entidade *RegistroEmprestimo*, ou seja, um usuário pode ter vários registros de empréstimos associados. O atributo *situacaoMatricula* é usado para verificar se o usuário está apto a realizar novos empréstimos.
+* **RegistroEmprestimo**: Representa o registro de um empréstimo de um livro para um usuário. Está relacionado a exatamente um *Usuario* e a uma *Obra*. Contém informações sobre o início e a previsão de devolução do empréstimo. Possui dois relacionamentos "N:1", um com *Usuario* e outro com *Obra*.
+* **Obra**: Representa um livro ou material disponível para empréstimo. Possui um relacionamento "1:N" com *RegistroEmprestimo*, indicando que uma obra pode ser emprestada múltiplas vezes ao longo do tempo.
+
+## 3.2. Modelo de Dados Canônico
+
+Para facilitar a transformação entre os modelos ORM/SQLite e ODM/MongoDB, é necessário definir um Modelo de Dados Canônico (MDC) que sirva como intermediário. O MDC deve conter os atributos comuns entre os dois modelos, permitindo que as transformações sejam realizadas de forma eficiente.
+
+O MDC é um padrão de integração que minimiza as dependências entre os sistemas de persistência, evitando-se que diversos sistemas dependam diretamente uns dos outros. Em vez disso, todos os sistemas dependem do MDC, que atua como um intermediário entre eles. A figura abaixo ilustra o MDC proposto por [Hohpe e Woolf (2004)](#hohpe2004):
+
+![Modelo de Dados Canônico](CanonicalDataModel.gif)
+Figura 2: Modelo de Dados Canônico - Fonte: [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/patterns/messaging/CanonicalDataModel.html)
+
+Na figura acima, os sistemas A, B e C e D dependem do MDC, mas cada um não dependem diretamente dos outros. Isso permite que os sistemas sejam desacoplados, facilitando a manutenção e evolução dos modelos de dados.
+
+
+## 3.2. Diagrama de Sequência
+
+# 4. Implementação
+
+
+## 4.1. Configuração do Ambiente
+
+## 4.2. Implementação do Redis Listener
+
+## 4.3. Implementação do Transformador de Modelos
 
 # Referências
 

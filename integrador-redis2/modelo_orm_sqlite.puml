@@ -1,0 +1,56 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "Sistema de Gestão Acadêmica (SGA)" {
+
+class Estudante {
+    - id : int
+    - nomeCompleto : String
+    - dataDeNascimento : String
+    - matricula : int
+    - statusEmprestimoLivros : StatusEmprestimo
+}
+
+class Disciplina {
+    - id : int
+    - codigo : String
+    - titulo : String
+    - ementa : String
+}
+
+class Turma {
+    - id : int
+    - codigo : String
+    - disciplina : Disciplina
+    - alunosMatriculados : int
+    - vagasDisponiveis : int
+}
+
+class Matricula {
+    - id : int
+    - estudante : Estudante
+    - turma : Turma
+    - status : StatusMatricula
+}
+
+enum StatusMatricula {
+    ATIVA
+    TRANCADA
+    CANCELADA
+}
+
+enum StatusEmprestimo {
+    QUITADO
+    EM_ABERTO
+}
+
+' Relacionamentos
+Disciplina "1" <-- "*" Turma
+Turma "1" <-- "*" Matricula
+Estudante "1" <-- "*" Matricula
+Estudante "1" --> "1" StatusEmprestimo
+Matricula "1" --> "1" StatusMatricula
+
+}
+
+@enduml
