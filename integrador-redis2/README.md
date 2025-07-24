@@ -166,6 +166,7 @@ Além disso, para viabilizar a correspondência entre os identificadores locais 
 A seguir, apresenta-se o diagrama de classes do modelo canônico proposto, incluindo a entidade de mapeamento de IDs:
 
 ![Modelo de Dados Canônico](modelo_de_dados_canonico.png)
+
 Figura 6: Diagrama de Classes do Modelo de Dados Canônico, código-fonte disponível em [modelo_de_dados_canonico.puml](modelo_de_dados_canonico.puml).
 
 # 4. Implementação
