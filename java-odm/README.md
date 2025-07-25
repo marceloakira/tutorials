@@ -1,18 +1,5 @@
 # 🟢 Java ODM com Spring Data MongoDB e Docker (Explicado Passo a Passo)
 
-## 📋 Índice
-1. O que vamos fazer
-2. Instalação do MongoDB via Docker
-3. Criação do projeto Java (Spring Boot) no VS Code
-4. Configuração da conexão MongoDB
-5. Implementação do modelo Estudante
-6. Implementação do repositório
-7. Serviço de inicialização com CRUD
-8. Execução e testes
-9. Verificação dos dados no MongoDB
-
----
-
 ## 1. O que vamos fazer
 
 Neste tutorial, baseado no tutorial [Spring Data MongoDB](https://spring.io/guides/gs/accessing-data-mongodb), você vai:

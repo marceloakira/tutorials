@@ -1,9 +1,5 @@
-.DS_Store
 *.class
 *.jar
-*.cpgz
-target/
-*.class
 *.war
 *.ear
 *.db
@@ -11,7 +7,6 @@ target/
 *.tmp
 *.swp
 *.bak
+*.DS_Store
 *.sqlite
-*.tar.gz
-*.zip
-classpath.txt
+src/target/

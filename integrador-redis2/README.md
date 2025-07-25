@@ -171,11 +171,23 @@ Figura 6: Diagrama de Classes do Modelo de Dados Canônico, código-fonte dispon
 
 # 4. Implementação
 
-## 4.1. Configuração do Ambiente
+## 4.1. Adaptação dos Sistemas SGA e SB
 
-## 4.2. Implementação do Redis Listener
+### SGA publicando eventos CRUD no Redis
 
-## 4.3. Implementação do Transformador de Modelos
+### SB publicando eventos CRUD no Redis
+
+## Verificando a Publicação de Eventos no Redis
+
+## 4.2. Implementação dos Transformadores de Modelos
+
+## Implementação do Redis Listener
+
+## Implementação do Transformador ODM -> ORM
+
+## Implementação do Transformador ORM -> ODM
+
+## 4.3. Testes de Integração
 
 # Referências
 

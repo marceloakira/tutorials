@@ -1,4 +1,4 @@
-package model;
+package br.ufg.inf.sga.model;
 
 import java.sql.*;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
