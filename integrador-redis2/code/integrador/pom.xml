@@ -1,0 +1,103 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>br.ufg.inf</groupId>
+  <artifactId>integrador</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+  </properties>
+
+  <dependencies>
+
+    <!-- Módulos internos -->
+    <dependency>
+      <groupId>br.ufg.inf</groupId>
+      <artifactId>repositorio</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>br.ufg.inf</groupId>
+      <artifactId>sga</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>br.ufg.inf</groupId>
+      <artifactId>sb</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <classifier>plain</classifier>
+    </dependency>
+
+    <!-- Apache Camel -->
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-core</artifactId>
+      <version>3.21.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-http</artifactId>
+      <version>3.21.0</version>
+    </dependency>
+
+    <!-- Redis com Lettuce -->
+    <dependency>
+      <groupId>io.lettuce</groupId>
+      <artifactId>lettuce-core</artifactId>
+      <version>6.2.7.RELEASE</version>
+    </dependency>
+
+    <!-- JSON -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.11.0</version>
+    </dependency>
+
+    <!-- Logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.12</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.4.14</version>
+    </dependency>
+
+    <!-- Testes -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.10.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- ORMLite -->
+    <dependency>
+        <groupId>com.j256.ormlite</groupId>
+        <artifactId>ormlite-core</artifactId>
+        <version>6.1</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.j256.ormlite</groupId>
+        <artifactId>ormlite-jdbc</artifactId>
+        <version>6.1</version>
+    </dependency>
+
+    <!-- SQLite JDBC driver -->
+    <dependency>
+        <groupId>org.xerial</groupId>
+        <artifactId>sqlite-jdbc</artifactId>
+        <version>3.50.3.0</version>
+    </dependency>
+
+  </dependencies>
+
+</project>
