@@ -24,9 +24,9 @@ public class PersistenciaCanonicoProcessor implements Processor {
     public PersistenciaCanonicoProcessor() {
         Database db = new Database("integrador.db");
         this.estudanteRepo = new Repositorio<>(db, EstudanteCanonico.class);
-        this.estudanteRepo.setPublishCrudOperation(false); // Desabilita publicação de CRUD para evitar loops
+        this.estudanteRepo.setEnableCrudPublishing(false); // Desabilita publicação de CRUD para evitar loops
         this.mappingRepo = new Repositorio<>(db, EstudanteIdMapping.class);
-        this.mappingRepo.setPublishCrudOperation(false); // Desabilita publicação de CRUD para evitar loops
+        this.mappingRepo.setEnableCrudPublishing(false); // Desabilita publicação de CRUD para evitar loops
     }
 
     @Override

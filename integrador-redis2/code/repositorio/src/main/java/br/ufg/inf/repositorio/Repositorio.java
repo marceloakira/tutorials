@@ -29,7 +29,7 @@ public class Repositorio<T, ID> {
     private T loadedEntity;
     private Class<T> entityClass;
     private RedisPublisher redisPublisher;
-    private boolean publishCrudOperation = true;
+    private boolean enableCrudPublishing = true;
     private Gson gson;
 
     /**
@@ -97,7 +97,7 @@ public class Repositorio<T, ID> {
             loadedEntities.add(entity);
             
             // Publicar operação CREATE no Redis
-            if (publishCrudOperation) {
+            if (enableCrudPublishing) {
                 System.out.println("✅ Entidade criada: " + entity);
                 System.out.println("  - Operation: CREATE");
                 publishCrudOperation(CrudOperation.OperationType.CREATE, entity);
@@ -116,7 +116,7 @@ public class Repositorio<T, ID> {
     public void update(T entity) {
         try {
             dao.update(entity);
-            if (publishCrudOperation) {
+            if (enableCrudPublishing) {
                 publishCrudOperation(CrudOperation.OperationType.UPDATE, entity);
             }
         } catch (SQLException e) {
@@ -133,7 +133,7 @@ public class Repositorio<T, ID> {
             dao.delete(entity);
             
             // Publicar operação DELETE no Redis
-            if (publishCrudOperation) {
+            if (enableCrudPublishing) {
                 publishCrudOperation(CrudOperation.OperationType.DELETE, entity);
             }
         } catch (SQLException e) {
@@ -198,17 +198,17 @@ public class Repositorio<T, ID> {
 
     /**
      * Define se as operações CRUD devem ser publicadas no Redis.
-     * @param publish true para publicar, false para não publicar
+     * @param enable true para publicar, false para não publicar
      */
-    public void setPublishCrudOperation(boolean publish) {
-        this.publishCrudOperation = publish;
+    public void setEnableCrudPublishing(boolean enable) {
+        this.enableCrudPublishing = enable;
     }
     
     /**
      * Verifica se as operações CRUD estão configuradas para serem publicadas no Redis.
      * @return true se as operações devem ser publicadas, false caso contrário
      */
-    public boolean getPublishCrudOperation() {
-        return this.publishCrudOperation;
+    public boolean isEnableCrudPublishing() {
+        return this.enableCrudPublishing;
     }
 }

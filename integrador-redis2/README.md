@@ -171,7 +171,69 @@ Figura 6: Diagrama de Classes do Modelo de Dados Canônico, código-fonte dispon
 
 # 4. Implementação
 
-## 4.1. Adaptação dos Sistemas SGA e SB
+Como foi visto anteriormente, a arquitetura utilizada no integrador é publicador-assinante, onde o Redis atua como canal de mensagens. O SGA e o SB publicam eventos de inserção, atualização e exclusão de dados no Redis, e um consumidor de eventos é responsável por processar esses eventos e realizar as transformações necessárias entre os modelos ORM/SQLite e ODM/MongoDB.
+
+Portanto, a implementação do integrador envolve as seguintes etapas:
+1. **Adaptação do SGA e SB para publicar eventos CRUD no Redis**: Modificar os sistemas SGA e SB para que publiquem eventos de inserção, atualização e exclusão de dados no Redis.
+2. **Implementação do consumidor de eventos**: Criar um componente que consome os eventos publicados no Redis e realiza as transformações necessárias entre os modelos ORM/SQLite e ODM/MongoDB.
+3. **Implementação dos transformadores ORM -> ODM e ODM -> ORM**: Criar transformadores que convertem os dados entre os modelos ORM/SQLite e ODM/MongoDB, garantindo que as informações sejam corretamente mapeadas entre os sistemas.
+
+O código-fonte do integrador pode ser encontrado na [pasta code do repositório integrador-redis2](https://github.com/marceloakira/tutorials/tree/main/integrador-redis2/code). Foram criados 5 projetos Maven independentes, cada um com seu próprio `pom.xml` e estrutura de diretórios.
+
+![Código-Fonte do Integrador Redis II](codigo-fonte.png)
+
+Cada projeto possui uma função específica:
+* **sb**: Implementa o Sistema de Biblioteca (SB) com a camada de persistência ODM/MongoDB.
+* **sga**: Implementa o Sistema de Gestão Acadêmica (SGA) com a camada de persistência ORM/SQLite.
+* **publicador**: Implementa o módulo de publicação de eventos no Redis, que será utilizado pelo SGA e SB.
+* **repositório**: Implementa o repositório genérico que realiza operações CRUD e publica eventos no Redis.
+* **integrador**: Implementa o integrador que consome os eventos do Redis e realiza as transformações entre os modelos de dados.
+
+As instruções de compilação e execução dos projetos estão disponíveis no arquivo `README.md` da pasta do código-fonte. A seguir, detalharemos as etapas de adaptação dos sistemas SGA e SB para publicar eventos no Redis, a implementação do consumidor de eventos e os transformadores de modelos.
+
+## 4.1. Adaptação para a Produção de Eventos
+
+Para que o SGA e o SB publiquem eventos de inserção, atualização e exclusão de dados no Redis, é necessário adaptar os módulos de cada sistema para incluir a lógica de publicação de eventos. Essa adaptação envolve a implementação de um publicador que envia mensagens para um canal específico do Redis sempre que uma operação CRUD é realizada.
+
+Outro ponto importante é garantir que os eventos sejam publicados de forma assíncrona, para não bloquear as operações dos sistemas. O Redis oferece suporte a publicadores-assinantes, permitindo que os sistemas publiquem eventos em canais específicos e que o consumidor de eventos escute esses canais para processar as mensagens. Há outras ferramentas que também podem ser utilizadas para publicar eventos, como Apache Kafka, RabbitMQ, ActiveMQ, etc. No entanto, neste tutorial, optamos por utilizar o Redis como opção de banco de dados NoSQL mais aderente ao propósito da disciplina.
+
+Outro módulo que será criado é o repositório, que será responsável por persistir os dados no Redis. O repositório deve ser capaz de lidar com as operações CRUD e publicar os eventos correspondentes no canal do Redis através do módulo publicador. Este módulo é genérico, ou seja, realiza operações CRUD para qualquer entidade, inicialmente desenvolvido para o SGA em [tutorial anterior](https://github.com/marceloakira/tutorials/tree/main/javafx-crud2#parte-1-reuso-na-camada-modelo). 
+
+### Módulo Publicador
+
+O módulo publicador foi explicado no [tutorial anterior](https://github.com/marceloakira/tutorials/tree/main/integrador-redis). Foi implementado usando GSon como serializador/desserializador de objetos Java para JSON e Lettuce como cliente assíncrono para o Redis.
+
+### Módulo Repositório
+
+O módulo repositório foi implementado em [tutorial anterior](https://github.com/marceloakira/tutorials/tree/main/javafx-crud2) e corresponde às classes `Repositório` e `Database`. A diferença é que o repositório pode publicar eventos no Redis através do módulo publicador, por meio do método `publishCrudOperation(CrudOperation.OperationType operationType, T entity)`:
+
+```java
+    /**
+     * Publica uma operação CRUD no Redis.
+     * @param operationType Tipo da operação (CREATE, UPDATE, DELETE)
+     * @param entity Entidade envolvida na operação
+     */
+    private void publishCrudOperation(CrudOperation.OperationType operationType, T entity) {
+        try {
+            String entityName = entityClass.getSimpleName();
+            String entityJson = gson.toJson(entity);
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            
+            CrudOperation operation = new CrudOperation(
+                entityName, 
+                operationType, 
+                CrudOperation.Source.ORM, 
+                entityJson, 
+                timestamp
+            );
+            redisPublisher.publishOperation(operation);
+        } catch (Exception e) {
+            System.err.println("Erro ao publicar operação no Redis: " + e.getMessage());
+        }
+    }
+```
+
+Desta forma, sempre que uma operação CRUD for realizada no repositório, um evento correspondente será publicado no Redis. O evento contém informações sobre o tipo de operação (inserção, atualização ou exclusão), a entidade afetada e um timestamp. Para que o evento seja publicado, os métodos create, update e delete do repositório devem chamar o método `publishCrudOperation` após a operação ser concluída com sucesso.
 
 ### SGA publicando eventos CRUD no Redis
 
@@ -179,15 +241,15 @@ Figura 6: Diagrama de Classes do Modelo de Dados Canônico, código-fonte dispon
 
 ## Verificando a Publicação de Eventos no Redis
 
-## 4.2. Implementação dos Transformadores de Modelos
+## 4.2. Implementação do Consumidor de Eventos
 
-## Implementação do Redis Listener
-
-## Implementação do Transformador ODM -> ORM
+## 4.3. Implementação dos Transformadores de Modelos
 
 ## Implementação do Transformador ORM -> ODM
 
-## 4.3. Testes de Integração
+## Implementação do Transformador ODM -> ORM
+
+TODO: como exercício ou para futuras versões deste tutorial
 
 # Referências
 
