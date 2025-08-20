@@ -200,7 +200,8 @@ class Estudante {
     - matricula: String
     - nome: String
     - ano: int
-    + realizarMatricula(d: Disciplina): String
+    + realizarMatricula(d: Disciplina): void
+    + listarDisciplinas(): List<Disciplina>
 }
 
 class Disciplina {
@@ -208,19 +209,19 @@ class Disciplina {
     - nome: String
     - ano: int
     - vagas: int
-    + verificarDisponibilidade(): bool
+    + verificarDisponibilidade(): boolean
+    + reduzirVaga(): void
 }
 
 class Matricula {
     - data: Date
     - status: String
-    - estudante: Estudante
-    - disciplina: Disciplina
+    + cancelar(): void
 }
 
 ' Relações estruturais
-Matricula "*" --> "1" Estudante : estudante
-Matricula "*" --> "1" Disciplina : disciplina
+Estudante "1" --> "0..*" Matricula : possui >
+Disciplina "1" --> "0..*" Matricula : oferta >
 
 @enduml
 ```
