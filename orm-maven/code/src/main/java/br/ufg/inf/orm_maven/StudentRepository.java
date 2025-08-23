@@ -1,4 +1,4 @@
-package br.ufg.inf;
+package br.ufg.inf.orm_maven;
 
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.dao.Dao;
@@ -73,6 +73,4 @@ public class StudentRepository
         }
         return this.loadedStudents;
     }
-
-    // getters and setters ommited...        
 }

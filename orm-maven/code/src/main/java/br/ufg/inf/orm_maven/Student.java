@@ -1,4 +1,4 @@
-package br.ufg.inf;
+package br.ufg.inf.orm_maven;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -66,9 +66,5 @@ public class Student
     /**SET Method Propertie birthday*/
     public void setBirthday(Date birthday){
         this.birthday = birthday;
-    }//end method setBirthday
-
-//End GetterSetterExtension Source Code
-
-
-}//End class
+    } //end method setBirthday
+}

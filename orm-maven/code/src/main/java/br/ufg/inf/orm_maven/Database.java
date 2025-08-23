@@ -1,4 +1,4 @@
-package br.ufg.inf;
+package br.ufg.inf.orm_maven;
 
 import java.sql.*;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
