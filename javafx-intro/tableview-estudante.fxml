@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+
+<TableView fx:id="tabela" prefHeight="219.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <columns>
+      <TableColumn fx:id="idCol" editable="false" prefWidth="75.0" text="Id" />
+      <TableColumn fx:id="matriculaCol" prefWidth="173.0" text="Matrícula" />
+      <TableColumn fx:id="nomeCompletoCol" prefWidth="173.0" text="Nome Completo" />
+      <TableColumn fx:id="dataDeNascimentoCol" prefWidth="173.0" text="Data de Nascimento" />
+   </columns>
+</TableView>

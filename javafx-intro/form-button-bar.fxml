@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox alignment="CENTER" prefHeight="80.0" prefWidth="450.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button mnemonicParsing="false" text="Novo" />
+      <Button mnemonicParsing="false" text="Editar" />
+      <Button mnemonicParsing="false" text="Deletar" />
+      <Button layoutX="106.0" layoutY="10.0" mnemonicParsing="false" text="Buscar" />
+      <Button mnemonicParsing="false" text="Cancelar" />
+      <Button layoutX="217.0" layoutY="10.0" mnemonicParsing="false" text="Confirmar" />
+   </children>
+</HBox>
