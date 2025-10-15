@@ -1,0 +1,61 @@
+@startuml
+left to right direction
+title Diagrama de Classes de Análise - Exemplo
+
+' Entidades principais
+class Usuario {
+    -login
+    -senha
+    -nomeCompleto
+    -dataDeNascimento
+}
+
+class PerfilUsuario {
+    -foto
+    -telefone
+    -endereco
+}
+
+class Estudante {
+    -matricula
+}
+
+class Professor {
+    -identificacaoFuncional
+}
+
+class Disciplina {
+    -codigo
+    -titulo
+    -ementa
+}
+
+class Turma {
+    -codigo
+    -alunosMatriculados
+    -vagasDisponiveis
+}
+
+class Matricula {
+    -status
+}
+
+' Relacionamentos UML corretos
+' Relacionamento 1:1: Usuario possui PerfilUsuario
+Usuario "1" -- "0..1" PerfilUsuario : possui >
+
+' Herança: Usuario é superclasse de Estudante e Professor
+Usuario <|-- Estudante
+Usuario <|-- Professor
+
+' Associação simples: Turma tem referência para Disciplina
+Disciplina "1" -- "0..*" Turma : oferece >
+
+' Relacionamento Professor ministra Turma
+Professor "1..*" -- "0..*" Turma : ministra >
+
+' Associações através da classe Matricula
+Estudante "1" -- "0..*" Matricula : realiza >
+Turma "1" -- "0..*" Matricula : < possui
+
+@enduml

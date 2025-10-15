@@ -1,0 +1,81 @@
+@startuml er
+!define ENTITY(e) entity e
+!define PK(x) <b><color:red>x</color></b>
+!define FK(x) <color:blue>x</color>
+
+title Diagrama ER - Entidade Relacionamento
+
+ENTITY(usuario) {
+    PK(id) : BIGINT
+    --
+    login : VARCHAR(50)
+    senha : VARCHAR(255)
+    nome_completo : VARCHAR(100)
+    data_nascimento : DATE
+    tipo_usuario : VARCHAR(20)
+}
+
+ENTITY(perfil_usuario) {
+    PK(id) : BIGINT
+    --
+    foto : BLOB
+    telefone : VARCHAR(15)
+    endereco : VARCHAR(255)
+    FK(usuario_id) : BIGINT
+}
+
+ENTITY(estudante) {
+    PK(id) : BIGINT
+    --
+    matricula : VARCHAR(20)
+    FK(usuario_id) : BIGINT
+}
+
+ENTITY(professor) {
+    PK(id) : BIGINT
+    --
+    identificacao_funcional : VARCHAR(20)
+    FK(usuario_id) : BIGINT
+}
+
+ENTITY(disciplina) {
+    PK(id) : BIGINT
+    --
+    codigo : VARCHAR(10)
+    titulo : VARCHAR(100)
+    ementa : TEXT
+}
+
+ENTITY(turma) {
+    PK(id) : BIGINT
+    --
+    codigo : VARCHAR(20)
+    alunos_matriculados : INTEGER
+    vagas_disponiveis : INTEGER
+    FK(disciplina_id) : BIGINT
+    FK(professor_id) : BIGINT
+}
+
+ENTITY(matricula) {
+    PK(id) : BIGINT
+    --
+    status : VARCHAR(20)
+    data_matricula : TIMESTAMP
+    FK(estudante_id) : BIGINT
+    FK(turma_id) : BIGINT
+}
+
+' Relacionamentos
+usuario ||--o| perfil_usuario : "possui"
+usuario ||--o{ estudante : "herança"
+usuario ||--o{ professor : "herança"
+disciplina ||--o{ turma : "oferece"
+professor ||--o{ turma : "ministra"
+estudante ||--o{ matricula : "realiza"
+turma ||--o{ matricula : "possui"
+
+note right of usuario : Tabela principal com herança\npor coluna discriminadora
+note right of perfil_usuario : Relacionamento 1:1 opcional
+note right of matricula : Tabela de associação\nEstudante-Turma
+
+@enduml

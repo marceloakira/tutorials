@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence 
+             https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+    <!-- Unidade de Persistência Principal -->
+    <persistence-unit name="tutorial-jpa" transaction-type="RESOURCE_LOCAL">
+        
+        <!-- Provider JPA (Hibernate) -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        
+        <!-- Classes das Entidades (serão adicionadas conforme o desenvolvimento) -->
+        <!--
+        <class>br.ufg.inf.tutorial.model.Usuario</class>
+        <class>br.ufg.inf.tutorial.model.Estudante</class>
+        <class>br.ufg.inf.tutorial.model.Professor</class>
+        <class>br.ufg.inf.tutorial.model.PerfilUsuario</class>
+        <class>br.ufg.inf.tutorial.model.Disciplina</class>
+        <class>br.ufg.inf.tutorial.model.Turma</class>
+        <class>br.ufg.inf.tutorial.model.Matricula</class>
+        -->
+
+        <!-- Propriedades de Configuração -->
+        <properties>
+            <!-- Configuração do Banco de Dados H2 -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:tutorial;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"/>
+            <property name="jakarta.persistence.jdbc.user" value="sa"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+
+            <!-- Configurações do Hibernate -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.use_sql_comments" value="true"/>
+            
+            <!-- Configurações de Performance -->
+            <property name="hibernate.jdbc.batch_size" value="20"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.cache.use_query_cache" value="false"/>
+            
+            <!-- Configurações de Log -->
+            <property name="hibernate.generate_statistics" value="false"/>
+        </properties>
+
+    </persistence-unit>
+
+    <!-- Unidade de Persistência para Testes -->
+    <persistence-unit name="tutorial-jpa-test" transaction-type="RESOURCE_LOCAL">
+        
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        
+        <properties>
+            <!-- Configuração do Banco H2 em Memória para Testes -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"/>
+            <property name="jakarta.persistence.jdbc.user" value="sa"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+
+            <!-- Configurações do Hibernate para Testes -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="false"/>
+            
+            <!-- Desabilitar cache para testes -->
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.cache.use_query_cache" value="false"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
