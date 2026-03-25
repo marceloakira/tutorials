@@ -1,0 +1,163 @@
+#+TITLE: Emacspeak no Android (Termux) — Guia Completo e Funcional
+#+AUTHOR: 
+#+DATE: 
+#+OPTIONS: toc:2 num:nil
+
+* 📱 Visão Geral
+Devido a limitações do ambiente Android/Termux:
+
+- espeak → não funciona corretamente para áudio
+- backends tradicionais do Emacspeak → incompatíveis
+- termux-tts-speak → funciona (usa TTS nativo do Android)
+- solução final → speech server customizado em Tcl
+
+* 🧰 1. Instalação do Termux
+⚠️ Não use a versão da Play Store  
+Use a versão do F-Droid
+
+* 🔌 2. Instalar Termux:API
+Instale o app Termux:API no Android (via F-Droid)
+
+* ⚙️ 3. Instalar dependências
+#+BEGIN_SRC bash
+pkg update
+pkg upgrade
+
+pkg install git emacs tcl termux-api make clang
+#+END_SRC
+
+* 🔍 4. Verificar ambiente
+#+BEGIN_SRC bash
+command -v tclsh
+printf 'puts "teste tcl"\n' | tclsh
+#+END_SRC
+
+* 🔊 5. Testar TTS
+#+BEGIN_SRC bash
+termux-tts-speak "teste de voz"
+#+END_SRC
+
+* 📥 6. Instalar Emacspeak
+#+BEGIN_SRC bash
+git clone https://github.com/tvraman/emacspeak.git
+cd emacspeak
+make config
+make
+#+END_SRC
+
+* 📁 7. Criar servidor TTS
+Crie o arquivo:
+
+#+BEGIN_SRC bash
+~/emacspeak/servers/termux-tts
+#+END_SRC
+
+Conteúdo:
+
+#+BEGIN_SRC tcl
+#!/data/data/com.termux/files/usr/bin/tclsh
+
+set logFile "/data/data/com.termux/files/home/termux-tts.log"
+set pendingText ""
+set lastSpoken ""
+
+proc logmsg {msg} {
+    global logFile
+    set f [open $logFile a]
+    puts $f $msg
+    close $f
+}
+
+proc shell_quote {s} {
+    regsub -all {'} $s {'"'"'} s
+    return "'$s'"
+}
+
+proc normalize_text {text} {
+    regsub -all {[[:space:]]+} [string trim $text] " " text
+    return $text
+}
+
+proc stop_speech {} {
+    catch {exec sh -c "termux-tts-speak --stop >/dev/null 2>&1"}
+}
+
+proc speak_now {text} {
+    global lastSpoken
+    set text [normalize_text $text]
+    if {$text eq ""} { return }
+
+    if {$text eq $lastSpoken} { return }
+
+    set lastSpoken $text
+    stop_speech
+    after 80
+
+    catch {exec sh -c "termux-tts-speak [shell_quote $text] >/dev/null 2>&1 &"}
+}
+
+proc queue_replace {text} {
+    global pendingText
+    set pendingText [normalize_text $text]
+}
+
+proc flush_pending {} {
+    global pendingText
+    if {$pendingText eq ""} { return }
+    set text $pendingText
+    set pendingText ""
+    speak_now $text
+}
+
+while {![eof stdin]} {
+    if {[gets stdin line] >= 0} {
+        set line [string trim $line]
+
+        if {[regexp {^q\s+\"(.*)\"$} $line -> text]} {
+            queue_replace $text
+        } elseif {[regexp {^q\s+(.*)$} $line -> text]} {
+            queue_replace $text
+        } elseif {$line eq "d"} {
+            flush_pending
+        } elseif {$line eq "s"} {
+            set pendingText ""
+            stop_speech
+        }
+    }
+}
+#+END_SRC
+
+#+BEGIN_SRC bash
+chmod +x ~/emacspeak/servers/termux-tts
+#+END_SRC
+
+* 🧠 8. Configurar Emacs
+#+BEGIN_SRC bash
+nano ~/.emacs.d/init.el
+#+END_SRC
+
+Adicionar:
+
+#+BEGIN_SRC emacs-lisp
+(setq dtk-program "/data/data/com.termux/files/home/emacspeak/servers/termux-tts")
+(load-file "/data/data/com.termux/files/home/emacspeak/lisp/emacspeak-setup.el")
+#+END_SRC
+
+* ▶️ 9. Executar
+#+BEGIN_SRC bash
+emacs
+#+END_SRC
+
+* 🔍 10. Logs
+#+BEGIN_SRC bash
+tail -n 100 ~/termux-tts.log
+#+END_SRC
+
+* 💡 11. Observações e Dicas de Uso
+
+- Recomenda-se utilizar um teclado Bluetooth para melhor produtividade
+- O servidor TTS é experimental e pode conter bugs
+- Alternativa estável: usar Emacspeak via SSH em outra máquina
+
+* 🚀 Conclusão
+Emacspeak funcional no Android via Termux usando TTS nativo.
