@@ -1,0 +1,176 @@
+#+TITLE: Tutorial: Instalação acessível para programação em Java (Emacs + Emacspeak)
+
+* Objetivo
+Configurar um ambiente Java acessível com:
+- Emacs + Emacspeak
+- Execução com F5
+- Suporte a Scanner
+- Autocomplete (company)
+- LSP Java
+
+* Pré-requisitos
+
+** macOS
+#+begin_src bash
+brew install openjdk
+brew install emacs
+#+end_src
+
+Adicionar ao PATH:
+#+begin_src bash
+echo 'export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+#+end_src
+
+** Ubuntu
+#+begin_src bash
+sudo apt update
+sudo apt install openjdk-17-jdk emacs espeak
+#+end_src
+
+** Verificação
+#+begin_src bash
+java -version
+javac -version
+emacs --version
+#+end_src
+
+* Instalar Emacspeak
+
+#+begin_src bash
+git clone https://github.com/tvraman/emacspeak.git
+cd emacspeak
+make config
+make
+#+end_src
+
+Teste:
+#+begin_src bash
+cd servers
+./espeak
+#+end_src
+
+* Configuração do Emacs
+
+Coloque o arquivo =init.el= na mesma pasta deste tutorial.
+
+Ajuste o caminho:
+
+** macOS
+#+begin_src emacs-lisp
+(load-file "/Users/SEU_USUARIO/emacspeak/lisp/emacspeak-setup.el")
+#+end_src
+
+** Ubuntu
+#+begin_src emacs-lisp
+(load-file "/home/SEU_USUARIO/emacspeak/lisp/emacspeak-setup.el")
+#+end_src
+
+* Instalar pacotes
+
+No Emacs:
+#+begin_example
+M-x package-refresh-contents
+M-x package-install RET company RET
+M-x package-install RET lsp-mode RET
+M-x package-install RET lsp-java RET
+#+end_example
+
+* Testar acessibilidade
+
+#+begin_example
+C-e  → lê linha
+C-n  → próxima linha
+#+end_example
+
+* Execução com F5
+
+Pressione:
+#+begin_example
+F5
+#+end_example
+
+Fluxo:
+1. Compila
+2. Executa
+3. Abre buffer interativo
+4. Vocaliza saída
+
+* Exemplo básico
+
+#+begin_src java
+public class Ola {
+    public static void main(String[] args) {
+        System.out.println("Olá mundo");
+    }
+}
+#+end_src
+
+* Exemplo com package
+
+#+begin_src java
+package tests;
+
+public class Ola {
+    public static void main(String[] args) {
+        System.out.println("Olá com package");
+    }
+}
+#+end_src
+
+* Entrada com Scanner
+
+#+begin_src java
+import java.util.Scanner;
+
+public class Entrada {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite seu nome:");
+        String nome = sc.nextLine();
+        System.out.println("Olá " + nome);
+    }
+}
+#+end_src
+
+* Autocomplete
+
+#+begin_example
+M-/  → sugestões
+C-n  → próximo
+C-p  → anterior
+ENTER → confirma
+#+end_example
+
+* LSP
+
+#+begin_example
+M-x lsp-describe-session
+#+end_example
+
+* Problemas comuns
+
+** Emacspeak não fala
+- Verifique caminho no init.el
+- Verifique espeak
+
+** F5 não funciona
+- Arquivo salvo
+- Classe com main
+
+* Estrutura de build
+
+#+begin_example
+.emacs-java-build/
+#+end_example
+
+* Boas práticas
+
+- Usar ambiente textual
+- Evitar IDEs pesadas
+- Usar atalhos simples
+- Preferir leitura contínua
+
+* Conclusão
+
+Ambiente leve, acessível e ideal para ensino de Java.
