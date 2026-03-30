@@ -1,0 +1,11 @@
+services:
+  emacspeak:
+    volumes:
+      # PulseAudio: usa o servidor de áudio do host.
+      # Ajuste o UID (1000) caso necessário: id -u
+      - /run/user/1000/pulse/native:/run/pulse/native
+    environment:
+      PULSE_SERVER: unix:/run/pulse/native
+    devices:
+      # ALSA: acesso direto aos dispositivos de som do host.
+      - /dev/snd:/dev/snd

@@ -1,0 +1,12 @@
+services:
+  emacspeak:
+    build: .
+    image: emacspeak
+    volumes:
+      - emacs_eln_cache:/root/.emacs.d/eln-cache
+      - .:/workspace
+    stdin_open: true
+    tty: true
+
+volumes:
+  emacs_eln_cache:

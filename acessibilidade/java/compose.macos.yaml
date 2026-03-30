@@ -1,0 +1,10 @@
+services:
+  emacspeak:
+    environment:
+      # Servidor TTS Tcl nativo que usa espeak-ng + socat para enviar
+      # WAV via TCP (porta 5500) ao host macOS onde sox reproduz via CoreAudio.
+      # Antes de iniciar o container, execute no host: ./start-speechd-macos.sh
+      DTK_SPEECH_SERVER: "espeak-socat"
+    extra_hosts:
+      # Garante que host.docker.internal resolva para o host macOS.
+      - "host.docker.internal:host-gateway"
